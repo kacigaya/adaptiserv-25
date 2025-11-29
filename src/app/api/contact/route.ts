@@ -80,11 +80,11 @@ export async function POST(request: NextRequest) {
       name2: body.name2.trim(),
       email: body.email.trim().toLowerCase(),
       siret: body.siret?.trim() || '',
-      phone: body.phone.trim(),
+      phone: body.phone?.toString() || '',
       date: body.date?.trim() || '',
       time: body.time?.trim() || '',
-      service: body.service.trim(),
-      message: body.message.trim(),
+      service: body.service.trim() || '',
+      message: body.message.trim() || '',
     };
 
     const emailResult = await sendContactEmail(formData);

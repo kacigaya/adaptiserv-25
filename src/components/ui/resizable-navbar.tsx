@@ -1,4 +1,6 @@
 "use client";
+
+import React, { useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 import { IconMenu2, IconX } from "@tabler/icons-react";
 import {
@@ -7,8 +9,6 @@ import {
   useScroll,
   useMotionValueEvent,
 } from "motion/react";
-
-import React, { useRef, useState } from "react";
 
 
 interface NavbarProps {
@@ -195,14 +195,14 @@ export const MobileNav = ({
   return (
     <motion.div
       animate={{
-        backdropFilter: visible ? "blur(10px)" : "none",
-        boxShadow: visible
+        backdropFilter: visible || mobileMenuOpen ? "blur(10px)" : "none",
+        boxShadow: visible || mobileMenuOpen
           ? "0 0 24px rgba(34, 42, 53, 0.06), 0 1px 1px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(34, 42, 53, 0.04), 0 0 4px rgba(34, 42, 53, 0.08), 0 16px 68px rgba(47, 48, 55, 0.05), 0 1px 0 rgba(255, 255, 255, 0.1) inset"
           : "none",
         width: visible ? "90%" : "100%",
         paddingRight: visible ? "12px" : "0px",
         paddingLeft: visible ? "12px" : "0px",
-        borderRadius: visible ? "4px" : "2rem",
+        borderRadius: mobileMenuOpen ? "24px" : "9999px",
         y: visible ? 20 : 0,
       }}
       transition={{
@@ -212,7 +212,7 @@ export const MobileNav = ({
       }}
       className={cn(
         "relative z-50 mx-auto flex w-full max-w-[calc(100vw-2rem)] flex-col items-center justify-between bg-transparent px-4 py-2 lg:hidden",
-        visible && "bg-white/80 dark:bg-neutral-950/80",
+        (visible || mobileMenuOpen) && "bg-white/80 dark:bg-neutral-950/80",
         className,
       )}
     >
@@ -267,7 +267,7 @@ export const MobileNavMenu = ({
           exit={{ opacity: 0, height: 0 }}
           transition={{ duration: 0.3, ease: "easeInOut" }}
           className={cn(
-            "w-full flex flex-col items-center justify-center gap-4 mt-4 py-4 bg-white/90 rounded-lg shadow-lg dark:bg-neutral-900/90 backdrop-blur-sm",
+            "w-full flex flex-col items-center justify-center gap-4 mt-4 py-4",
             className,
           )}
         >
